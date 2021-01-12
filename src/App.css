@@ -28,6 +28,19 @@
   color: #61dafb;
 }
 
+.favBox {
+  background-color: #08B7AC;
+  color: white;
+}
+
+.villagerCard {
+  display: inline-block;
+}
+
+.villagerPic {
+  width: 10vw;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

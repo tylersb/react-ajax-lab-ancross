@@ -11,7 +11,6 @@ const App = () => {
 
   // Swipe em!
   useEffect(() => {
-    console.log('hey')
     fetch('http://acnhapi.com/v1/villagers/')
     .then(response => response.json())
     .then((rdata) => {
@@ -37,22 +36,16 @@ const App = () => {
     }
   }
 
-  // add this bit to handle edge-case handling for DisplayCards bcuz we lazyyyyyyy
-  const handleDoofus = () => {
-    
-  }
-
-
     return (
       <div className="App">
         <div className="searchBox">
           <input type="text" value={search} onChange={handleChange} />
         </div>
         <div>
-          <DisplayCards handleClick={handleClick} data={dynamicSearch()}/>
+          <DisplayCards clickie={true} handleClick={handleClick} data={dynamicSearch()}/>
         </div>
         <div className="favBox">
-          <DisplayCards handleClick={handleDoofus} data={favs} />
+          <DisplayCards clickie={false} data={favs} />
         </div>
       </div>
     );

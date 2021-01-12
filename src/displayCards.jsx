@@ -1,5 +1,3 @@
-import react, {useState, useEffect} from 'react'
-
 const DisplayCards = (props) => {
 
     return (

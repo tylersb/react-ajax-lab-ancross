@@ -260,6 +260,6 @@ Again, there are other solutions to this problem! But in this case, we've patche
 
 </details>
 
-## Take it Further!
+## Keep exploring!!
 
 Explore more on this topic as you please; there's a lot of data within the animal crossing API, why not build out new app functionality? Have fun!

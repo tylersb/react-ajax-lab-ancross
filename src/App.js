@@ -12,11 +12,11 @@ const App = () => {
   // Swipe em!
   useEffect(() => {
     fetch('http://acnhapi.com/v1/villagers/')
-    .then(response => response.json())
-    .then((rdata) => {
-      rdata = Object.values(rdata)
-      setData({hits: rdata})
-    })
+      .then(response => response.json())
+      .then((rdata) => {
+        rdata = Object.values(rdata)
+        setData({hits: rdata})
+      })
   }, [])
 
   // Action for updating our search value

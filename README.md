@@ -1,5 +1,7 @@
 # 'AnCross', or 'a React Lesson about complex APIs'
+
 ### What are we doing?
+
 **Glad you asked.** Today we will be making a react app that queries an API that returns an *object of objects*. We want to process that object and return an instance of each one, then make a feature where we can "favorite" as many instances as we want!
 
 ## Getting Started
@@ -39,7 +41,7 @@ Great! Now we have a truly empty workspace.
 
 In that same `app.js`, I want to add some code to make a call to my API. To do so, I need a couple of things. At the top of our app, let's add:
 ``` js
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 ```
 
 Great! Now we have access to `useState` and `useEffect`. For now, we'll just be using `useEffect`.
@@ -48,10 +50,10 @@ Inside of your `const app = () => {` add this code:
 ``` js
   useEffect(() => {
     fetch('http://acnhapi.com/v1/villagers/')
-    .then(response => response.json())
-    .then((rdata) => {
-      console.log(rdata)
-    })
+      .then(response => response.json())
+      .then((rdata) => {
+        console.log(rdata)
+      })
   }, [])
   ```
 
@@ -92,14 +94,15 @@ let [data, setData] = useState({hits: []})
 ```
 
 Adapt the useEffect:
+
 ```js
   useEffect(() => {
     fetch('http://acnhapi.com/v1/villagers/')
-    .then(response => response.json())
-    .then((rdata) => {
-      rdata = Object.values(rdata)
-      setData({hits: rdata})
-    })
+      .then(response => response.json())
+      .then((rdata) => {
+        rdata = Object.values(rdata)
+        setData({hits: rdata})
+      })
   }, [])
 ```
 

@@ -186,7 +186,7 @@ First, add an input box in App.js:
 ```js
     <div className="App">
       <div>
-        <label for="villager-search">Search for a villager:</label>
+        <label htmlFor="villager-search">Search for a villager:</label>
         <input 
           id="villager-search" 
           type="text" 
@@ -227,24 +227,35 @@ But what if we wanted to develop a list of favorites? It's not that difficult, r
 
 Let's do just that:
 ```js
-let [favs, setFavs] = useState([])
+  let [faves, setFaves] = useState([])
 ```
 Now, we just need to build a function that can populate that state. Let's stop and consider how we want our users to interact with our page.
 
-For simplicity's sake, I think I would prefer if the user could simply click on a villager portrait, and that would populate that villager into the array. That's easy in react! Remember `onClick`?
+For simplicity's sake, I think I would prefer if the user could simply click on a villager portrait, and that would populate that villager into the array. That's easy in react! Remember `onClick`? 
+
+Add a handleClick helper method to App.js... 
 
 ```js
   const handleClick = (villager) => {
-      setFavs([...favs, villager])
+    setFaves([...faves, villager])
   }
 ```
 
-PAUSE! How is our spread operator working here? Why are we using it here? 
-React behaves a bit differently than we're used to. Traditionally, if we wanted to add to an array we would simply `.push()` to it, but React state, as we know, is a bit different.
+...pass it to DisplayCards as a prop...
 
-We have a few different options to push array data to state, but this is a clean, easy to read and understand version. What we are doing is "spreading" the current favs state, and applying it to the "first" value of an array we're generating here. Hence the array notation. The *last* thing in the array will be the *new villager* we have created, the one being passed into `handleClick`.
+```js
+     <DisplayCards villagers={getFilteredVillagers()} handleClick={handleClick} />
+```
 
-Super!! So in terms of raw functionality, we now just need to display these villagers for the user to see. How can we reuse an existing React component to accomplish this?
+...and put it on each image as the onClick.
+
+```js
+     <img src={v.image_uri} alt={v.name['name-USen']} onClick={props.handleClick}/>
+```
+
+Check to see that villagers are being added to the faves state (in the React dev tools)!
+
+## Display Favorites
 
 **hint: we already have a displayCards component!**
 
@@ -254,7 +265,7 @@ In app.js...
 
 ```js
   <div className="favBox">
-        <DisplayCards data={favs} />
+        <DisplayCards data={faves} />
   </div>
 
 ```

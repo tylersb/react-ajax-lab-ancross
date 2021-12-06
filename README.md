@@ -4,6 +4,12 @@
 
 **Glad you asked.** Today we will be making a react app that queries an API that returns an *object of objects*. We want to process that object and return an instance of each one, then make a feature where we can "favorite" as many instances as we want!
 
+### The API
+
+[Animal Crossing: New Horizons](https://acnhapi.com/doc)
+
+Specifically, we'll be using the [villagers endpoints](https://acnhapi.com/doc#tag/Villagers) to render a list of villagers.
+
 ## Getting Started
 
 To start, let's go ahead and instantiate a new react app. We'll use:

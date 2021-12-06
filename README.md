@@ -181,27 +181,44 @@ Got it? Well done!
 
 But what if we wanted to add a feature where users could search for a particular villager? How could we implement dynamic search functionality, the like of which we used in Fruit Filter, here in this application? Take a moment to work independently and see if you can develop a feature which can handle this!
 
+First, add an input box in App.js:
+
+```js
+    <div className="App">
+      <div>
+        <label for="villager-search">Search for a villager:</label>
+        <input 
+          id="villager-search" 
+          type="text" 
+          value={search} 
+          onChange={handleChange}
+        />
+      </div>
+      <DisplayCards villagers={getFilteredVillagers()}/>
+    </div>
+```
+
+Now, create a `getfilteredVillagers` helper method that returns an array of villagers whose name includes a substring that matches the search:
+
+_Hint: utilize .filter(), .toLowerCase(), and .includes()_
+
 <details>
 <summary></summary>
 
 
 ```js
-  const dynamicSearch = () => {
-      return data.hits.filter(villager => villager.name['name-USen'].toLowerCase().includes(search.toLowerCase()))
+  const getFilteredVillagers = (e) => {
+    let searchTerm = search.toLowerCase()
+    return data.villagers.filter(v => {
+      let lowerCaseName = v.name['name-USen'].toLowerCase()
+      return lowerCaseName.includes(searchTerm)
+    })
   }
 ```
 
 and within the return...
 
-```js
-  <div className="searchBox">
-    <input type="text" value={search} onChange={handleChange} />
-  </div>
-```
-
 </details>
-
-Finish that quick? Pack it into a separate component for extra practice!!
 
 ## Even further! Favorite functionality:
 

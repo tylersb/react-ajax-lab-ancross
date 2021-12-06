@@ -10,6 +10,8 @@
 
 Specifically, we'll be using the [villagers endpoints](https://acnhapi.com/doc#tag/Villagers) to render a list of villagers.
 
+Check out the [all villagers endpoint](http://acnhapi.com/v1/villagers/) in your broswer to get an idea of what data we'll be working with.
+
 ## Getting Started
 
 To start, let's go ahead and instantiate a new react app. We'll use:

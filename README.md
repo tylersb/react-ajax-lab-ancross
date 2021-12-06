@@ -247,52 +247,56 @@ Add a handleClick helper method to App.js...
      <DisplayCards villagers={getFilteredVillagers()} handleClick={handleClick} />
 ```
 
-...and put it on each image as the onClick.
+...and put it on each image as the onClick (use an anonymous function wrapper to pass a villager into the handleClick inside DisplayCards).
 
 ```js
-     <img src={v.image_uri} alt={v.name['name-USen']} onClick={props.handleClick}/>
+    <img src={v.image_uri} alt={v.name['name-USen']} onClick={()=>props.handleClick(v)}/>
 ```
 
 Check to see that villagers are being added to the faves state (in the React dev tools)!
 
 ## Display Favorites
 
-**hint: we already have a displayCards component!**
+Display a list of favorite villagers underneath the search results.
+
+**hint: we already have a DisplayCards component!**
 
 <details>
 <summary></summary>
 In app.js...
 
 ```js
-  <div className="favBox">
-        <DisplayCards data={faves} />
-  </div>
-
+      <div>
+        <h1>Favorite Villagers:</h1>
+        <DisplayCards villagers={faves}/>
+      </div>
 ```
 
 </details>
-
-Ease McPease.
 
 ## But wait. There's more!
 
 Our functionality is glorious at this point, but we currently have a few edge cases that need to be handled. Independently, try to work out what edge cases we need to handle, and how we can resolve them!
 
+First issue: We can send a villager to our faves array multiple times. While it does resemble my preference of having 45 instances of Chevre as my "favorite villagers" it's actually a fairly poor user experience.
+
+Second issue: if we click a villager inside of our "faves" display, it results in an error. This is because we do *not* want onClick functionality for our faves to share the onClick functionality with our standard display.
+
 <details>
 <summary>Don't you open this until you've given this a good shot.</summary>
-First issue: We can send a villager to our faves array multiple times. While it does resemble my preference of having 45 instances of Chevre as my "favorite villagers" it's actually a fairly poor user experience. Here's how I might fix it:
 
 ```js
   const handleClick = (villager) => {
     if(!favs.includes(villager)){
-      setFavs([...favs, villager])
+      setFavs([...faves, villager])
     }
   }
 ```
 
 simple enough!
 
-Second issue: if we click a villager inside of our "faves" display, it results in an error. This is because we do *not* want onClick functionality for our faves to share the onClick functionality with our standard display. There are great ways to fix this, but here's a lazy solution that will easily patch right over:
+        
+There are great ways to fix this, but here's a lazy solution that will easily patch right over:
 
 ```js
 //in app.js
@@ -308,12 +312,11 @@ Simple enough, I've added a boolean value as props to each of my displayCards co
 ```js
 // in DisplayCards.js
 <div key={i} className="villagerCard" onClick={() => props.clickie ? props.handleClick(villager) : null}>
-  <img className="villagerPic" src={villager['image_uri']} alt={villager.name['name-USen']} />
+  <img src={villager['image_uri']} alt={villager.name['name-USen']} />
   <p>{villager.name['name-USen']}</p>
 </div>
 
 ```
-
 Again, there are other solutions to this problem! But in this case, we've patched right over the error. If "clickie" is true, great! Run the handleClick. However, if it is *not* then the computer will not even make the attempt to run the function. The onClick behavior resolves to `null`.
 
 </details>

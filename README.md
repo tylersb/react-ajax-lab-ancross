@@ -89,18 +89,18 @@ Adapt your useEffect to look like so:
 
 Super! Now our `rdata` variable should represent an *array of objects*. This is much more usable given our app!
 
-## Check for understanding
+## Made the Data Useable
 
-We've used React a little at this point, and we know we're going to have to `useState` in order to populate the state variable and render any data.
+We want to use this data to (for now), render a list of every villager's name. Store the array of villagers in state so you can access it within the render method. What Hook do you need for this?
 
-Set up a state variable to take the array we're generating off our API call, then iterate over that variable to, *for now*, render a list of every villager's name. Think about how we need to navigate this object to get the data we want to see!
-
-<details>
-<summary></summary>
-at the top
-
+at the top, import useState
 ```js
-let [data, setData] = useState({hits: []})
+import { useEffect, useState } from 'react'
+```
+
+Set up a villagerData state
+```js
+  let [data, setData] = useState({villagers: []})
 ```
 
 Adapt the useEffect:
@@ -111,58 +111,75 @@ Adapt the useEffect:
       .then(response => response.json())
       .then((rdata) => {
         rdata = Object.values(rdata)
-        setData({hits: rdata})
+        setData({villagers: rdata})
+        console.log('Villager Data:', rdata)
       })
   }, [])
 ```
 
-```js
-    let list = data.hits.map((villager, i) => {
-        return(
-            <p>{villager.name['name-USen']}</p>
-        )
-    })
-```
+## Render a list of villager names
 
+Use the map iterator to render a list of villager names.
+
+<details>
+<summary></summary>
+        
+```js
+  const villagerList = data.villagers.map((villager)=>{
+    return <li>{villager.name['name-USen']}</li>
+  })
+  return (
+    <div className="App">
+      <ul>{villagerList}</ul> 
+    </div>
+  )
+```
+        
 </details>
 
-## Cool Beans.
+## Build It Out: DisplayCards
+Now that we can pull in and display the data, we'll begin to build out our app! Eventually, we'll render several villager cards onto the page. Let's first send our villager data to a DisplayCards component that displays the image and name for each villager.
 
-We've made it to this point, and now the hard work is done. Let's polish this up a little bit.
 
-I want to generate a brand new component to handle the render of all the results. Let's go ahead and make a component called `displayCards.jsx` inside of our `src` folder.
+Replace the App.js content with a DisplayCards component that recieves a villagers prop:
 
-Within `displayCards.jsx` I just want to render all of my array elements, as opposed to within the `list` variable we made a bit ago. Let's refactor.
+```js
+    <div className="App">
+      <DisplayCards villagers={data.villagers}/>
+    </div>
+```
 
-## Check for understanding #2:
-When we refactor our code to render the names inside of ```displayCards.jsx```, we could also take the time to render an image of each villager. How could we use what we learned with accessing our villager's *name* property to render an image?
-Work independently to see if you can get an image rendered for each villager.
+Now build out DisplayCards so it renders a list of villagers, displaying their name **and their image**. (Where is the image in the data?)
 
 <details>
 <summary>Solution</summary>
 
-Inside of `displayCards.jsx`
+Inside of `DisplayCards.js`
 
 ```js
-  <div>
-      {props.data.map((villager, i) => {
-          return (
-          <div key={i} className="villagerCard">
-              <img className="villagerPic" src={villager['image_uri']} alt={villager.name['name-USen']} />
-              <p>{villager.name['name-USen']}</p>
-          </div>
-          )
-      })}
-  </div>
+function DisplayCards(props) {
+    const allVillagers = props.villagers.map(v=>{
+        return (
+            <li>
+                <img src={v.image_uri} alt={v.name['name-USen']} />
+                <p>{v.name['name-USen']}</p>
+            </li>
+        )
+    })
+    return (
+        <ul>{allVillagers}</ul>
+    )
+}
+
+export default DisplayCards
 ```
 </details>
 <br>
 Got it? Well done!
-At this point, we can relax and sit back, knowing that we can render API data on a page effectively.
 
-## Take it further
+## Add a Search Filter
 
-But what if we wanted to add a feature where users could search for a particular villager? How could we implement dynamic search functionality, the like of which we used in Fruit Filter, here in this application? Take a moment to work independently and see if you can't develop a feature which can handle this!
+But what if we wanted to add a feature where users could search for a particular villager? How could we implement dynamic search functionality, the like of which we used in Fruit Filter, here in this application? Take a moment to work independently and see if you can develop a feature which can handle this!
 
 <details>
 <summary></summary>

@@ -25,7 +25,7 @@ code .
 npm start
 ```
 
-## Great! Now let's write some code.
+## Clear the canvas.
 
 The first thing I like to do once I know my React App is working is to delete the boilerplate code given to us by `create-react-app`. From our `return(` statement, let's remove:
 ``` html
@@ -47,31 +47,33 @@ The first thing I like to do once I know my React App is working is to delete th
 
 Great! Now we have a truly empty workspace.
 
-In that same `app.js`, I want to add some code to make a call to my API. To do so, I need a couple of things. At the top of our app, let's add:
+## Fetch the Data
+
+AJAX API calls are a "side effect", which means our fetch call will go inside the [useEffect](https://reactjs.org/docs/hooks-effect.html) hook.
+
+Import useEffect at the top of App.js:
+
 ``` js
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 ```
 
-Great! Now we have access to `useState` and `useEffect`. For now, we'll just be using `useEffect`.
+Now add the useEffect to the App component, fetch the data, and print it to the console:
 
-Inside of your `const app = () => {` add this code:
 ``` js
   useEffect(() => {
     fetch('http://acnhapi.com/v1/villagers/')
       .then(response => response.json())
       .then((rdata) => {
-        console.log(rdata)
+        console.log('Villager Data:', rdata)
       })
   }, [])
   ```
 
-Super! Let's take a close look at what this is doing in our devTools console.
-
-Rad! We should see a big object of objects. Now we're getting somewhere.
+## Make the data iterable
 
 Now, how do we surf through an object and turn it into a useable iterable? We want to render a card for *each and every object in here* so we know that this needs to be treated like an array. How do we do that?
 
-Javascript has a really handy method called `Object.values()`. This method takes an *object* as an argument, and returns all the *values* within that object as an array. Let's test it out!
+Javascript has a really handy method called `Object.values()`. This method takes an *object* as an argument, and returns all the *values* within that object as an array. Re-assign `rdata` to hold the values from the response data in an array.
 
 Adapt your useEffect to look like so:
 ``` js

@@ -14,13 +14,19 @@ Check out the [all villagers endpoint](http://acnhapi.com/v1/villagers/) in your
 
 ## Getting Started
 
-To start, let's go ahead and instantiate a new react app. We'll use:
+To start, let's go ahead and instantiate a new react app. 
+
+* fork and clone this repo
+
+use
+
 ``` bash
-npx create-react-app villager_faves
+npx create-react-app .
 ```
+
 and we won't need any additional NPM packages, so we're now ready to 
+
 ``` bash
-cd villager_faves
 code .
 npm start
 ```
@@ -28,6 +34,7 @@ npm start
 ## Clear the canvas.
 
 The first thing I like to do once I know my React App is working is to delete the boilerplate code given to us by `create-react-app`. From our `return(` statement, let's remove:
+
 ``` html
 <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
